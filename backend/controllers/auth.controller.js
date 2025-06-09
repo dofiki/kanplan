@@ -6,7 +6,7 @@ const genTokenSetCookie = require('../utils/genTokenSetCookie.util');
 
 exports.authenticationSignUp = async (req, res, next) => {
 	try {
-		const { fullname, username, password, confirmPassword } = req.body;
+		const { fullname, username, password, confirmPassword, email } = req.body;
 
 		//confirm passwords
 		if (password != confirmPassword) {
@@ -28,6 +28,7 @@ exports.authenticationSignUp = async (req, res, next) => {
 			fullname: fullname,
 			username: username,
 			password: hashedPassword,
+			email: email,
 		});
 
 		//save new user to database
@@ -41,6 +42,7 @@ exports.authenticationSignUp = async (req, res, next) => {
 				_id: newUser._id,
 				fullname: newUser.fullname,
 				password: newUser.password,
+				email: newUser.email,
 			});
 		}
 	} catch (error) {

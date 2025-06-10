@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+import jwt from "jsonwebtoken";
 
 function genTokenSetCookie(userId, res) {
 	const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
@@ -12,4 +12,4 @@ function genTokenSetCookie(userId, res) {
 	});
 }
 
-module.exports = genTokenSetCookie;
+export default genTokenSetCookie;

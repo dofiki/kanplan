@@ -77,13 +77,13 @@ exports.joinProject = async (req, res) => {
 exports.getUserProjects = async (req, res) => {
 	try {
 		const userId = req.user._id;
-		const userWithProjects = await User.findById(userId).populate(projects);
+		const userWithProjects = await User.findById(userId).populate('projects');
 
 		if (!userWithProjects) {
 			return res.status(404).json({ error: 'User Not Found' });
 		}
 
-		res.staus(200).json(userWithProjects.projects);
+		res.status(200).json(userWithProjects.projects);
 	} catch (error) {
 		console.log('Error in PRJCTRL: GET: ', error.message);
 		res.status(500).json({ error: 'Internal Server Error at PRJCTRL: GET' });

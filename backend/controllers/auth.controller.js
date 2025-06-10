@@ -49,3 +49,43 @@ exports.authenticationSignUp = async (req, res, next) => {
 		res.status(500).json({ error: 'Internal Server Error, AUTHCRTL: SIGNUP' });
 	}
 };
+
+exports.authenticationLogin = async (req, res, next) => {
+	try {
+		const { username, password } = req.body;
+
+		//get user from database
+		const user = await User.findOne({ username });
+
+		//check if password matches
+		const isPassCorrect = await bcrypt.compare(password, user?.password || '');
+
+		//error if no user or incorrect password
+		if (!user || !isPassCorrect) {
+			return res.status(400).json({ error: 'Invalid login credentials.' });
+		}
+
+		//Generate jwt token and set cookie for 15 days.
+		genTokenSetCookie(user._id, res);
+
+		//return succesfull login
+		res.status(200).json({
+			_id: user._id,
+			fullname: user.fullname,
+			username: user.username,
+		});
+	} catch (error) {
+		console.log('Error in AUTHCTRL: LOGIN: ', error.message);
+		res.status(500).json({ error: 'Internal Server Error: AUTHCTRL: LOGIN' });
+	}
+};
+
+exports.authenticationLogout = async (req, res, next) => {
+	try {
+		res.cookie('jwt', '', { maxAge: 0 });
+		res.status(200).json({ message: 'Logged Out Succesfully' });
+	} catch (error) {
+		console.log('Error in AUTHCTRL: LOGOUT: ', error.message);
+		res.status(500).json({ error: 'Error at AUTHCTRL: LOGOUT' });
+	}
+};

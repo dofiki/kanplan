@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const projectController = require('../controllers/projects.controller');
+const protectRoute = require('../middlewares/protectRoute.middleware');
 
 router.post('/create', protectRoute, projectController.createProject);
 router.post('/join', protectRoute, projectController.joinProject);

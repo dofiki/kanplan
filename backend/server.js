@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const app = express();
 const connectToMongoDB = require('./config/db');
 
@@ -12,6 +13,7 @@ const projectRoutes = require('./routes/project.routes');
 
 app.use(cors()); // Allow frontend to access the API
 app.use(express.json());
+app.use(cookieParser()); //for reading cookies
 
 // Test route
 app.get('/', (req, res) => {

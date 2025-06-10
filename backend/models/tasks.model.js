@@ -20,7 +20,7 @@ const taskSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		category: {
+		category: { // backlogs, working, review, done
 			type: String,
 			required: true,
 		},

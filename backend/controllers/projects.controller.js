@@ -1,7 +1,6 @@
-const Project = require('../models/projects.model');
-const User = require('../models/users.model');
-const bcrypt = require('bcryptjs');
-
+import Project from "../models/projects.model.js"
+import User from "../models/users.model.js"
+import bcrypt from "bcryptjs"
 
 export const createProject = async (req, res) => {
 	try {

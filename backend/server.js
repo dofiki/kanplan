@@ -1,29 +1,45 @@
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const app = express();
-const connectToMongoDB = require('./config/db');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+import connectToMongoDB from './config/db.js'; 
+import authenticationRoutes from './routes/auth.routes.js'; 
+import projectRoutes from './routes/project.routes.js'; 
+import taskRoutes from './routes/tasks.routes.js'
 
-const dotenv = require('dotenv'); // init .env file for the backend
 dotenv.config();
+
+const app = express();
 const PORT = process.env.PORT;
 
-const authenticationRoutes = require('./routes/auth.routes');
-const projectRoutes = require('./routes/project.routes');
-
-app.use(cors()); // Allow frontend to access the API
+// Middleware
+app.use(cors({
+	origin: 'http://localhost:3000', // or your frontend URL
+	credentials: true               // allow cookies to be sent
+}));
 app.use(express.json());
-app.use(cookieParser()); //for reading cookies
+app.use(cookieParser());
 
-// Test route
+// Routes
 app.get('/', (req, res) => {
 	res.send('<h1>BACKEND RUNNING</h1>');
 });
 
 app.use('/api/auth', authenticationRoutes);
-app.use('/api/project', projectRoutes);
+app.use('/api/projects', projectRoutes); 
+app.use('/api/tasks', taskRoutes)
 
-app.listen(PORT, () => {
-	connectToMongoDB();
-	console.log(`Server is running on http://localhost:${PORT}`);
-});
+// Start server
+async function startServer() {
+	try {
+		await connectToMongoDB();
+		app.listen(PORT, () => {
+			console.log(`Server is running on http://localhost:${PORT}`);
+		});
+	} catch (error) {
+		console.error('Failed to start server:', error);
+		process.exit(1);
+	}
+}
+
+startServer();

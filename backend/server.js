@@ -8,6 +8,7 @@ dotenv.config();
 const PORT = process.env.PORT;
 
 const authenticationRoutes = require('./routes/auth.routes');
+const projectRoutes = require('./routes/project.routes');
 
 app.use(cors()); // Allow frontend to access the API
 app.use(express.json());
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authenticationRoutes);
+app.use('/api/project', projectRoutes);
 
 app.listen(PORT, () => {
 	connectToMongoDB();

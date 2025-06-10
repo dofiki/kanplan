@@ -37,6 +37,7 @@ exports.authenticationSignUp = async (req, res, next) => {
 
 			await newUser.save();
 
+			//send succesfull signup
 			res.status(201).json({
 				_id: newUser._id,
 				fullname: newUser.fullname,

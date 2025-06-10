@@ -1,10 +1,8 @@
-const User = require('../models/users.model'); //the User model
+import User from '../models/users.model.js';
+import bcrypt from 'bcryptjs';
+import genTokenSetCookie from '../utils/genTokenSetCookie.util.js';
 
-const bcrypt = require('bcryptjs');
-
-const genTokenSetCookie = require('../utils/genTokenSetCookie.util');
-
-exports.authenticationSignUp = async (req, res, next) => {
+export const authenticationSignUp = async (req, res, next) => {
 	try {
 		const { fullname, username, password, confirmPassword, email } = req.body;
 
@@ -51,7 +49,7 @@ exports.authenticationSignUp = async (req, res, next) => {
 	}
 };
 
-exports.authenticationLogin = async (req, res, next) => {
+export const authenticationLogin = async (req, res, next) => {
 	try {
 		const { username, password } = req.body;
 
@@ -81,7 +79,7 @@ exports.authenticationLogin = async (req, res, next) => {
 	}
 };
 
-exports.authenticationLogout = async (req, res, next) => {
+export const authenticationLogout = async (req, res, next) => {
 	try {
 		res.cookie('jwt', '', { maxAge: 0 });
 		res.status(200).json({ message: 'Logged Out Succesfully' });

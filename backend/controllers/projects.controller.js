@@ -1,9 +1,9 @@
 const Project = require('../models/projects.model');
 const User = require('../models/users.model');
-
 const bcrypt = require('bcryptjs');
 
-exports.createProject = async (req, res) => {
+
+export const createProject = async (req, res) => {
 	try {
 		const { projectName, password } = req.body;
 		const userId = req.user._id;
@@ -36,7 +36,7 @@ exports.createProject = async (req, res) => {
 	}
 };
 
-exports.joinProject = async (req, res) => {
+export const joinProject = async (req, res) => {
 	try {
 		const { projectName, password } = req.body;
 		const userId = req.user._id;
@@ -74,7 +74,7 @@ exports.joinProject = async (req, res) => {
 	}
 };
 
-exports.getUserProjects = async (req, res) => {
+export const getUserProjects = async (req, res) => {
 	try {
 		const userId = req.user._id;
 		const userWithProjects = await User.findById(userId).populate('projects');

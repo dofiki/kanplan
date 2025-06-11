@@ -1,6 +1,6 @@
-import Project from "../models/projects.model.js"
-import User from "../models/users.model.js"
-import bcrypt from "bcryptjs"
+import Project from '../models/projects.model.js';
+import User from '../models/users.model.js';
+import bcrypt from 'bcryptjs';
 
 export const createProject = async (req, res) => {
 	try {
@@ -86,5 +86,15 @@ export const getUserProjects = async (req, res) => {
 	} catch (error) {
 		console.log('Error in PRJCTRL: GET: ', error.message);
 		res.status(500).json({ error: 'Internal Server Error at PRJCTRL: GET' });
+	}
+};
+
+export const getProjectUsers = async (req, res) => {
+	try {
+	} catch (error) {
+		console.log('Error in PRJCTRL: GET USERS: ', error.message);
+		res
+			.status(500)
+			.json({ error: 'Internal Server Error at PRJCTRL: GET USERS' });
 	}
 };

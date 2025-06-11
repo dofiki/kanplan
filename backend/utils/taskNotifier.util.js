@@ -4,9 +4,9 @@ import createTransporter from './nodemailerClient.js';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-cron.schedule('*/2 * * * *', async () => {
+cron.schedule('*/20 * * * *', async () => {
 	const transporter = createTransporter();
-	console.log('Running Two Minute Notification Check');
+	console.log('Running Twenty Minute Notification Check');
 
 	try {
 		const projects = await Project.find({}).populate('users').populate('tasks');
@@ -16,11 +16,6 @@ cron.schedule('*/2 * * * *', async () => {
 			const changedTasks = project.tasks.filter(
 				(task) =>
 					task.updatedAt > lastNotifiedAt || task.createdAt > lastNotifiedAt
-			);
-
-			console.log(
-				`Project ${project.projectName} has users:`,
-				project.users.map((u) => u.email)
 			);
 
 			console.log(process.env.GMAIL_USER);
@@ -39,7 +34,7 @@ cron.schedule('*/2 * * * *', async () => {
 						subject: `Task update in ${project.projectName}`,
 						text: `Hello, ${user.fullname}\nThere are recent changes in "${project.projectName}":\n\n${message}\n\nCheers,\nKanPlan Team`,
 					});
-					console.log(`Email sent o ${user.email}`);
+					console.log(`Email sent to: ${user.email}`);
 				} catch (error) {
 					console.log(`Error sending to: ${user.email}`, error);
 				}

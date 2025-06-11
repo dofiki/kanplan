@@ -7,6 +7,7 @@ import authenticationRoutes from './routes/auth.routes.js';
 import projectRoutes from './routes/project.routes.js';
 import taskRoutes from './routes/tasks.routes.js';
 import cron from './utils/taskNotifier.util.js';
+import createTransporter from './utils/nodemailerClient.js';
 
 dotenv.config();
 

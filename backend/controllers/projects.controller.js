@@ -91,6 +91,15 @@ export const getUserProjects = async (req, res) => {
 
 export const getProjectUsers = async (req, res) => {
 	try {
+		const { projectId } = req.params;
+		const projectWithUsers = await Project.findById(projectId).populate(
+			'users'
+		);
+
+		if (!projectWithUsers) {
+			return res.status(404).json({ error: 'No Project Found' });
+		}
+		res.status(200).json(projectWithUsers.users);
 	} catch (error) {
 		console.log('Error in PRJCTRL: GET USERS: ', error.message);
 		res

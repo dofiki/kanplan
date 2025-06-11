@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose';
 
 const projectSchema = new mongoose.Schema(
 	{
@@ -22,6 +22,10 @@ const projectSchema = new mongoose.Schema(
 				ref: 'Task',
 			},
 		],
+		lastNotifiedAt: {
+			type: Date,
+			default: null,
+		},
 	},
 	{ timestamps: true }
 );

@@ -40,6 +40,7 @@ cron.schedule('*/20 * * * *', async () => {
 				}
 			}
 		}
+		console.log('Emails Sent');
 	} catch (error) {
 		console.error('Error running notification cron:', error.message);
 	}

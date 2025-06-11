@@ -2,10 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import connectToMongoDB from './config/db.js'; 
-import authenticationRoutes from './routes/auth.routes.js'; 
-import projectRoutes from './routes/project.routes.js'; 
-import taskRoutes from './routes/tasks.routes.js'
+import connectToMongoDB from './config/db.js';
+import authenticationRoutes from './routes/auth.routes.js';
+import projectRoutes from './routes/project.routes.js';
+import taskRoutes from './routes/tasks.routes.js';
+import cron from './utils/taskNotifier.util.js';
 
 dotenv.config();
 
@@ -13,10 +14,12 @@ const app = express();
 const PORT = process.env.PORT;
 
 // Middleware
-app.use(cors({
-	origin: 'http://localhost:3000', // or your frontend URL
-	credentials: true               // allow cookies to be sent
-}));
+app.use(
+	cors({
+		origin: 'http://localhost:3000', // or your frontend URL
+		credentials: true, // allow cookies to be sent
+	})
+);
 app.use(express.json());
 app.use(cookieParser());
 
@@ -26,8 +29,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authenticationRoutes);
-app.use('/api/projects', projectRoutes); 
-app.use('/api/tasks', taskRoutes)
+app.use('/api/projects', projectRoutes);
+app.use('/api/tasks', taskRoutes);
 
 // Start server
 async function startServer() {

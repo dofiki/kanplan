@@ -6,8 +6,8 @@ const router = express.Router()
 
 router.post('/create/:projectId', protectRoute, createTask);
 router.get('/project/:projectId', protectRoute, getProjectTasks);
-//update task (put)
-//delete task (delete)
-//move task to another column (patch)
+router.put('/update/:taskId', protectRoute, updateTask);
+router.delete('/delete/:taskId', protectRoute, deleteTask);
+router.patch('/move/:taskId', protectRoute, moveTaskToCategory);
 
 export default router;

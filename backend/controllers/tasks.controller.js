@@ -108,6 +108,7 @@ export const updateTask = async (req, res) => {
 		res.status(500).json({ error: "Internal server error" });
 	}
 };
+
 export const deleteTask = async (req, res) => {
 	try {
 		const { taskId } = req.params;

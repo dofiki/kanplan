@@ -13,7 +13,7 @@ const initialData = {
   Working: {
     name: 'Working',
     items: [
-      { id: '3', text: 'Deploy App' },
+      { id: '8', text: 'Deploy Adpp' },
     ],
   },
   Review: {

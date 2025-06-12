@@ -1,6 +1,6 @@
 import cron from 'node-cron';
 import Project from '../models/projects.model.js';
-import createTransporter from './nodemailerClient.js';
+import createTransporter from './nodemailerClient.util.js';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

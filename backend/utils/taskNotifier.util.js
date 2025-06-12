@@ -39,7 +39,7 @@ cron.schedule('*/20 * * * *', async () => {
 					console.log(`Error sending to: ${user.email}`, error);
 				}
 
-				await delay(7000);
+				await delay(5000);
 			}
 
 			project.lastNotifiedAt = new Date();
